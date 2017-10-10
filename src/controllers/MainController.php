@@ -73,25 +73,15 @@ class MainController extends \craft\web\Controller
 
 
     /**
-     * Each time this controller is called a few assets will be loaded.
-     * Other assets that will be loaded like jquery are removed because we expect you to load them yourself on the site level instead from the plugin.
-     * This way jQuery only gets loaded once instead of multiple times if you have multiple forms on your page.
+     * Remove the assets the controller wants to load, because we will load the assets trought the twigextention.
+     * This way assets like jQuery only gets loaded once instead of multiple times if you have multiple forms on your page.
      *
      * @inheritdoc
      */
     public function init()
     {
         Yii::$app->view->on(View::EVENT_AFTER_RENDER, function ($e) {
-            $allowedAssets = [
-                'yii\validators\ValidationAsset',
-                'yii\widgets\ActiveFormAsset',
-            ];
-
-            foreach (array_keys($e->sender->assetBundles) as $bundle){
-                if(!in_array($bundle,$allowedAssets)){
-                    unset($e->sender->assetBundles[$bundle]);
-                }
-            }
+            $e->sender->assetBundles = [];
         });
     }
 
