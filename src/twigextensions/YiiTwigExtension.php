@@ -4,17 +4,9 @@ namespace plugins\dolphiq\form\twigextensions;
 
 use craft\helpers\UrlHelper;
 
-use plugins\dolphiq\form\models\vacancyForm;
-use plugins\dolphiq\form\controllers\MainController;
-use Twig_Extension;
-use Twig_SimpleFilter;
-use Twig_SimpleFunction;
-
 use Craft;
-use ReflectionProperty;
-use yii\base\Module;
-use yii\web\View;
-use yii\web\YiiAsset;
+use Twig_Extension;
+use Twig_SimpleFunction;
 
 class YiiTwigExtension extends Twig_Extension
 {

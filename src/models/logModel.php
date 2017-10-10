@@ -8,12 +8,6 @@
 
 namespace plugins\dolphiq\form\models;
 
-
-use Craft;
-use craft\db\ActiveRecord;
-use yii\behaviors\TimestampBehavior;
-use yii\db\Expression;
-
 /**
  * Class logModel
  * @package plugins\dolphiq\form\models

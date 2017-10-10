@@ -10,11 +10,7 @@ namespace plugins\dolphiq\form\controllers;
 
 use Craft;
 use craft\web\View;
-use IntlCalendar;
-use Locale;
-use plugins\dolphiq\form\models\contactForm;
 use plugins\dolphiq\form\models\logModel;
-use ResourceBundle;
 use Yii;
 use yii\helpers\FileHelper;
 use yii\mail\MessageInterface;

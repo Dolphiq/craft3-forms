@@ -10,7 +10,6 @@
 namespace plugins\dolphiq\form;
 
 use Craft;
-use plugins\dolphiq\form\controllers\MainController;
 use plugins\dolphiq\form\twigextensions\YiiTwigExtension;
 
 class Plugin extends \craft\base\Plugin
