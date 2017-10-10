@@ -1,0 +1,47 @@
+{
+  "name": "dolphiq/forms",
+  "description": "Formulieren",
+  "version": "1.0.0",
+  "keywords": [
+    "craft",
+    "craft3",
+    "cms",
+    "craftcms",
+    "craft-plugin",
+    "plugin",
+    "form",
+    "forms",
+    "yii",
+    "yii2"
+  ],
+  "type": "craft-plugin",
+  "minimum-stability": "beta",
+  "license": "MIT",
+  "require": {
+    "craftcms/cms": "^3.0.0-beta.20"
+  },
+  "autoload": {
+    "psr-4": {
+      "plugins\\dolphiq\\form\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Dolphiq",
+      "email": "info@dolphiq.nl",
+      "homepage": "https://dolphiq.nl/"
+    }
+  ],
+  "extra": {
+    "handle": "dolphiq-forms",
+    "name": "Forms",
+    "description": "Craft form plugin that will let you use forms as you would when using the yiiframework",
+    "schemaVersion": "1.0.0",
+    "developer": "Dolphiq",
+    "developerUrl": "https://dolphiq.nl/",
+    "hasCpSettings": false,
+    "hasCpSection": false,
+    "documentationUrl": "https://github.com/Dolphiq/craft3-forms/blob/master/README.md",
+    "changelogUrl": "https://raw.githubusercontent.com/Dolphiq/craft3-forms/master/CHANGELOG.md"
+  }
+}
