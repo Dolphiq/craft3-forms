@@ -5,8 +5,11 @@ namespace plugins\dolphiq\form\twigextensions;
 use craft\helpers\UrlHelper;
 
 use Craft;
+use plugins\dolphiq\form\assets\pjaxAsset;
 use Twig_Extension;
 use Twig_SimpleFunction;
+use yii\validators\ValidationAsset;
+use yii\widgets\ActiveFormAsset;
 
 class YiiTwigExtension extends Twig_Extension
 {
@@ -46,6 +49,9 @@ $.ajax({
 JS;
 
         Craft::$app->view->registerJs($script);
+        Craft::$app->view->registerAssetBundle(pjaxAsset::className());
+        Craft::$app->view->registerAssetBundle(ValidationAsset::className());
+        Craft::$app->view->registerAssetBundle(ActiveFormAsset::className());
 
         return '<div id="dolphiqFormPlugin-'.$uniqId.'" data-ajaxfill="'.UrlHelper::actionUrl('dolphiqform/main/index', ['type' => $type, 'params' => json_encode($params)]).'" class="form--wrapper"></div>';
     }
