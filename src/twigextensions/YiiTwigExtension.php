@@ -33,7 +33,7 @@ class YiiTwigExtension extends Twig_Extension
         ];
     }
 
-    public function dolphiqForm($type = null, $params = []){
+    public function dolphiqForm($handle = null, $params = []){
 
         $uniqId = uniqid().'-'.time();
 
@@ -53,7 +53,7 @@ JS;
         Craft::$app->view->registerAssetBundle(ValidationAsset::className());
         Craft::$app->view->registerAssetBundle(ActiveFormAsset::className());
 
-        return '<div id="dolphiqFormPlugin-'.$uniqId.'" data-ajaxfill="'.UrlHelper::actionUrl('dolphiqform/main/index', ['type' => $type, 'params' => json_encode($params)]).'" class="form--wrapper"></div>';
+        return '<div id="dolphiqFormPlugin-'.$uniqId.'" data-ajaxfill="'.UrlHelper::actionUrl('dolphiq-form/main/index', ['handle' => $handle, 'params' => json_encode($params)]).'" class="form--wrapper"></div>';
     }
 
 
