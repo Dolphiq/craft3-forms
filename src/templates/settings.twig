@@ -1,0 +1,53 @@
+{% import "_includes/forms" as form_elements %}
+
+
+{% for form in forms %}
+
+    <h2>{{ form.name }}</h2>
+
+    {{ form_elements.lightswitchField({
+        label:        "Activate",
+        instructions: "This switch will activate/de-activate this form without removing the settings for this form.",
+        name:         'forms[' ~ form.handle ~ '][enabled]',
+        on:           form.settings.enabled,
+        errors:       false
+    }) }}
+
+    <h3>Information mail</h3>
+
+    {% if form.getMailOwner() %}
+        {{ form_elements.textField({
+            label:        "Information mail - receiving email adress",
+            instructions: "The emailadress to which the information mail may be send",
+            name:         'forms[' ~ form.handle ~ '][mail_to]',
+            value:        form.settings.mail_to,
+            errors:       false
+        }) }}
+
+        {{ form_elements.textField({
+            label:        "Information mail - subject",
+            instructions: "The subject of the mail that contains the filled in form information",
+            name:         'forms[' ~ form.handle ~ '][mail_subject_owner]',
+            value:        form.settings.mail_subject_owner,
+            errors:       false
+        }) }}
+    {% else %}
+        <p>Add the file <strong>{{ form.handle }}MailOwner.php</strong> to create an email that will be send with the filled in form information</p>
+    {% endif %}
+
+    <h3>Thank you mail</h3>
+
+    {% if form.getMailCustomer() %}
+        {{ form_elements.textField({
+            label:        "Thank you mail - subject",
+            instructions: "The subject of the thank you mail that will be send to the person who filled in the form",
+            name:         'forms[' ~ form.handle ~ '][mail_subject_customer]',
+            value:        form.settings.mail_subject_customer,
+            errors:       false
+        }) }}
+    {% else %}
+        <p>Add the file <strong>{{ form.handle }}MailCustomer.php</strong> to create an email that will be send to the customer</p>
+    {% endif %}
+
+    <hr>
+{% endfor %}
