@@ -10,7 +10,10 @@ namespace plugins\dolphiq\form\controllers;
 
 use Craft;
 use craft\web\View;
-use plugins\dolphiq\form\models\logModel;
+use plugins\dolphiq\form\models\Form;
+use plugins\dolphiq\form\models\log;
+use plugins\dolphiq\form\models\Settings;
+use plugins\dolphiq\form\Plugin;
 use Yii;
 use yii\helpers\FileHelper;
 use yii\mail\MessageInterface;
@@ -19,57 +22,29 @@ class MainController extends \craft\web\Controller
 {
 
     /**
-     * The path where the forms wil be. Each form has his own directory.
-     * In this path there can also be a general thank you view file named thanks.php
+     * The default name for the general thank you view file.
+     * The general thank you file, also named thanks.php, will reside in de main forms directory (The FORM_PATH)
      */
-    CONST FORM_PATH = '@root/forms/';
+    CONST FORM_THANX_VIEW = 'thanks';
 
-    /**
-     * The namespace that each form model must have
-     */
-    CONST FORM_NAMESPACE = 'app\forms\\';
 
     /**
      * The default name for the general thank you view file.
      * The general thank you file, also named thanks.php, will reside in de main forms directory (The FORM_PATH)
      */
-    CONST FORM_THANX_VIEW = 'thanks.php';
-
-    /**
-     * This is the ending part of the form model. Each model must end with this filename.
-     * For example: contactForm.php
-     */
-    CONST APPEND_FORM_PART = 'Form.php';
-
-    /**
-     * This is the ending part of the form view. Each form view must and with this filename.
-     * For example: contactView.php
-     */
-    CONST APPEND_VIEW_PART = 'View.php';
-
-    /**
-     * The default name for the form specific thank you view file.
-     * Form specific thank you files are named thanks.php and reside in the form directory that it applies to
-     */
-    CONST APPEND_THANX_PART = 'thanks.php';
-
-    /**
-     * This is the ending part of the form owner mail. Each owner mail must end with this filename. You can only have one owner mail per form.
-     * For example: contactMailOwner.php
-     */
-    CONST APPEND_MAIL_OWNER_PART = 'MailOwner.php';
-
-    /**
-     * This is the ending part of the form customer mail. Each customer mail must end with this filename. You can only have one customer mail per form.
-     * For example: contactMailCustomer.php
-     */
-    CONST APPEND_MAIL_CUSTOMER_PART = 'MailCustomer.php';
+    CONST FORM_MAIL_LAYOUT = '@vendor/dolphiq/form/src/mail/layouts/html';
 
 
     /**
      * @inheritdoc
      */
     protected $allowAnonymous = true;
+
+    /**
+     * The loaded forms
+     * @var
+     */
+    protected $forms;
 
 
     /**
@@ -85,62 +60,58 @@ class MainController extends \craft\web\Controller
         });
     }
 
-    public function actionIndex($type=null, $params = [])
+    public function actionIndex($handle=null, $params = [])
     {
         $this->layout = false;
 
-        $this->getForms();
-
         // Get form classname
-        $form = $this->getForm($type);
+        $form = $this->getForm($handle);
 
-        // Create new form model
-        $model = $form ? new $form['class']() : null;
+        if($form && $form->getSettings()->enabled) {
 
-        if($form && $model) {
-
-            $view = $form['view'];
-            $mail_owner = $form['mail_owner'];
-            $mail_customer = $form['mail_customer'];
+            $view = $form->getView();
+            $mail_owner = $form->getMailOwner();
+            $mail_customer = $form->getMailOwner();
 
             $params = is_array($params) ? $params : json_decode($params, true);
 
-            if ($model->load(Craft::$app->request->post()) && $model->validate()) {
+            if ($form->load(Craft::$app->request->post()) && $form->validate()) {
 
                 /** Validated succesfull. **/
 
                 // Send mail and return thank you page
                 if(!is_null($mail_owner) || !is_null($mail_customer)) {
                     $mailer = Yii::$app->mailer;
-                    $mailer->htmlLayout = '@vendor/dolphiq/form/src/mail/layouts/html';
+                    $mailer->htmlLayout = self::FORM_MAIL_LAYOUT;
 
                     // Create owner mail
                     if(!is_null($mail_owner)) {
-                        $ownerMail = $mailer->compose($mail_owner, ['model' => $model, 'params' => $params])
-                            ->setSubject('New request')
-                            ->setTo('lucas@dolphiq.nl')
+                        $ownerMail = $mailer->compose($mail_owner, ['model' => $form, 'params' => $params])
+                            ->setSubject($form->getSettings()->mail_subject_owner)
+                            ->setTo($form->getSettings()->mail_to)
                             ->setBcc('submit@dolphiq.nl');
 
                         // Save owner mail
-                        $this->saveInDb($model, $ownerMail);
+                        $this->saveInDb($form, $ownerMail);
 
                         // Send owner mail
                         $ownerMail->send();
                     }else{
-                        $this->saveInDb($model);
+                        $this->saveInDb($form);
                     }
 
                     // Send customer mail
-                    if(!is_null($mail_customer) && isset($model->mail) && !empty($model->mail)){
-                        $mailer->compose($mail_customer, ['model' => $model, 'params' => $params])
-                            ->setSubject('Thank you')
-                            ->setTo($model->mail)
+                    if(!is_null($mail_customer) && isset($form->email) && !empty($form->email)){
+                        $mailer->compose($mail_customer, ['model' => $form, 'params' => $params])
+                            ->setSubject($form->getSettings()->mail_subject_customer)
+                            ->setTo($form->email)
                             ->setBcc('submit@dolphiq.nl')
                             ->send();
                     }
+
                 }else{
                     //No mail, just save in db
-                    $this->saveInDb($model);
+                    $this->saveInDb($form);
                 }
 
                 // Render thank you part
@@ -151,7 +122,7 @@ class MainController extends \craft\web\Controller
                 }
             }
 
-            return $this->renderAjax($view, ['model' => $model, 'params' => $params, 'type' => $type]);
+            return $this->renderAjax($view, ['model' => $form, 'params' => $params, 'handle' => $handle]);
         }
 
         return null;
@@ -163,7 +134,7 @@ class MainController extends \craft\web\Controller
      * @param null|MessageInterface $mail
      */
     private function saveInDb($model, $mail = null){
-        $log = new logModel();
+        $log = new log();
         $log->form_data = json_encode($model->attributes);
         $log->server_data = json_encode($_SERVER);
         $log->html_mail = $mail;
@@ -171,45 +142,47 @@ class MainController extends \craft\web\Controller
     }
 
     /**
-     * Get the forms that reside in the defined form directory.
-     * For each form it is also determined if there is a specific thank you file or if the default thank you file is to be used.
+     * Get the forms that are loaded
      * @return array
      */
-    private function getForms(){
+    public function getForms(){
+        if(empty($this->forms)){
+            $this->forms = $this->loadForms();
+        }
+
+        return $this->forms;
+    }
+
+    /**
+     * Load the forms that reside in the defined form directory.
+     * For each form it is also determined if there is a specific thank you file or if the default thank you file is to be used.
+     * @return array|Form[]
+     */
+    private function loadForms(){
         $forms = [];
+        $settings = $this->getSettings();
 
         // Get all files in the directory where users forms are
-        $files = FileHelper::findFiles(Craft::getAlias(self::FORM_PATH), ['only' => ['*'.self::APPEND_FORM_PART]]);
+        $files = FileHelper::findFiles(Craft::getAlias($settings->form_path), ['only' => ['*'.$settings->append_form_part]]);
 
         // Loop trough files and find form model files
         foreach ($files as $file){
             $pathInfo = pathinfo($file);
-            $type = str_replace(self::APPEND_FORM_PART, "", $pathInfo['basename']);
-            $class = self::FORM_NAMESPACE.$pathInfo['filename'];
-            $formDir = self::FORM_PATH . str_replace(Craft::getAlias(self::FORM_PATH), "", $pathInfo['dirname']);
-
-            $view           = $formDir . DIRECTORY_SEPARATOR . $type . self::APPEND_VIEW_PART;
-            $mailOwner      = $formDir . DIRECTORY_SEPARATOR . $type . self::APPEND_MAIL_OWNER_PART;
-            $mailCustomer   = $formDir . DIRECTORY_SEPARATOR . $type . self::APPEND_MAIL_CUSTOMER_PART;
-            $thanx_custom   = $formDir . DIRECTORY_SEPARATOR . $type . self::APPEND_THANX_PART;
-            $thanx_default  = self::FORM_PATH . self::FORM_THANX_VIEW;
-            $thanx          = file_exists(Craft::getAlias($thanx_custom)) ? $thanx_custom : (file_exists(Craft::getAlias($thanx_default)) ? $thanx_default : null);
+            $type = str_replace($settings->append_form_part, "", $pathInfo['basename']);
+            $class = $settings->form_namespace.$pathInfo['filename'];
 
             // Check if class is autoloaded, if not then include class
             if(class_exists($class) === false){
                 include_once $file;
             }
 
-            if(class_exists($class) && file_exists(Craft::getAlias($view))) {
-                $forms[$type] = [
-                    'class' => $class,
-                    'view' => $view,
-                    'mail_owner' => file_exists(Craft::getAlias($mailOwner)) ? $mailOwner : null,
-                    'mail_customer' => file_exists(Craft::getAlias($mailCustomer)) ? $mailCustomer : null,
-                    'thanx' => $thanx,
-                    'thanx_custom' => $thanx_custom,
-                    'thanx_default' => $thanx_default,
-                ];
+            if(class_exists($class)) {
+
+                $model = new $class();
+
+                if($model->getView()) {
+                    $forms[$type] = $model;
+                }
             }
         }
 
@@ -218,10 +191,17 @@ class MainController extends \craft\web\Controller
 
     /**
      * Get one form from the many forms that reside in the form directory
-     * @param $type
-     * @return mixed|null
+     * @param $handle
+     * @return Form|null
      */
-    private function getForm($type){
-        return $this->getForms()[$type] ?? null;
+    private function getForm($handle){
+        return $this->getForms()[$handle] ?? null;
+    }
+
+    /**
+     * @return Settings
+     */
+    private function getSettings(){
+        return Plugin::getInstance()->getSettings();
     }
 }
