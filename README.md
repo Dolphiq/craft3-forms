@@ -16,7 +16,7 @@ This plugin makes it possible to use forms the way the Yii 2 Framework offers.
        
 2. Install plugin in the Craft Control Panel under Settings > Plugins
 
-3. Add the directory `forms` to the root directory of your craft project (so next to your config and templates directory)
+3. Add the directory `forms` to the root directory of your craft project (next to your config and templates directory)
 
 ## Directory structure
 Below you will find an example directory structure for a contact and a vacancy form
@@ -41,7 +41,7 @@ forms/
 ## Creating a new form
 Lets say that we are going to create a contact form.
 
-1. Create a directory with the name of your form inside the `forms` directory. This name will be your forms handle later on.
+1. Create a directory with the name of your form inside the `forms` directory. This name will be your form handle later on.
 In this case it will be named `contact`
 2. Inside this directory create two files:
     * `contactForm.php` This file is a model that defines the fields and rules for the form. The name consists of the handle appended with `Form.php`.
@@ -108,7 +108,7 @@ In this case it will be named `contact`
   
         // Start active form
         $form = ActiveForm::begin([
-                'action' => \craft\helpers\UrlHelper::actionUrl('dolphiq-form/main/index', ['handle' => $handle]),
+                'action' => \craft\helpers\UrlHelper::actionUrl('dolphiq-craft3-forms/main/index', ['handle' => $handle]),
                 'method' => 'POST',
                 'options' => [
                     'data-pjax' => true,
@@ -182,7 +182,7 @@ There are two types of thank you messages:
 You can enable the plugin to send an email to the form owner and to the person who filled in the form.
 To do this you can create two files:
 
-1. `contactMailOwner.php` This file contains the email that will be send to the owner of the form, thats you.
+1. `contactMailOwner.php` This file contains the email that will be send to the owner of the form.
     
     You can use the `$model` variable to get attributes from the filled in form.
     
@@ -214,9 +214,9 @@ To do this you can create two files:
     </p>
     ```
     
-2. `contactMailCustomer.php` This file contains the email that will be send to the person who filled in the form. (if there is an `email` attribute available en it is filled in)
+2. `contactMailCustomer.php` This file contains the email that will be send to the person who filled in the form (if there is an `email` attribute available en it is filled in).
 
-    You can use the `$model` variable to get attributes from the filled in form. This way you can personalize the email
+    You can use the `$model` variable to get attributes from the filled in form. This way you can personalize the email.
     
     ```php
     <?php
