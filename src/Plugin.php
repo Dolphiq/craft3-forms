@@ -33,9 +33,9 @@ class Plugin extends \craft\base\Plugin
 
     protected function settingsHtml()
     {
-        $mainController = new MainController('dq-forms-main', 'dolphiq-form');
+        $mainController = new MainController('dq-forms-main', 'dolphiq-craft3-forms');
 
-        return \Craft::$app->getView()->renderTemplate('dolphiq-form/settings', [
+        return \Craft::$app->getView()->renderTemplate('dolphiq-craft3-forms/settings', [
             'forms' => $mainController->getForms(),
             'settings' => $this->getSettings()
         ]);

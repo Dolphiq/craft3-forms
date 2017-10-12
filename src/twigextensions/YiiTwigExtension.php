@@ -53,7 +53,7 @@ JS;
         Craft::$app->view->registerAssetBundle(ValidationAsset::className());
         Craft::$app->view->registerAssetBundle(ActiveFormAsset::className());
 
-        return '<div id="dolphiqFormPlugin-'.$uniqId.'" data-ajaxfill="'.UrlHelper::actionUrl('dolphiq-form/main/index', ['handle' => $handle, 'params' => json_encode($params)]).'" class="form--wrapper"></div>';
+        return '<div id="dolphiqFormPlugin-'.$uniqId.'" data-ajaxfill="'.UrlHelper::actionUrl('dolphiq-craft3-forms/main/index', ['handle' => $handle, 'params' => json_encode($params)]).'" class="form--wrapper"></div>';
     }
 
 

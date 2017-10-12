@@ -1,5 +1,5 @@
 {
-  "name": "dolphiq/form",
+  "name": "dolphiq/craft3-forms",
   "description": "Formulieren",
   "version": "1.0.0",
   "keywords": [
@@ -33,9 +33,9 @@
     }
   ],
   "extra": {
-    "handle": "dolphiq-form",
+    "handle": "dolphiq-craft3-forms",
     "name": "Forms",
-    "description": "Craft form plugin that will let you use forms as you would when using the yiiframework",
+    "description": "Craft form plugin that will let you use forms as you would when using the Yii 2 Framework",
     "schemaVersion": "1.0.0",
     "developer": "Dolphiq",
     "developerUrl": "https://dolphiq.nl/",

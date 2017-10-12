@@ -8,14 +8,11 @@
 
 namespace plugins\dolphiq\form\assets;
 
-use craft\web\AssetManager;
-use Yii;
-use yii\helpers\Url;
 use yii\web\AssetBundle;
 
 class pjaxAsset extends AssetBundle
 {
-    public $sourcePath = '@vendor/dolphiq/form/src/resources';
+    public $sourcePath = '@vendor/dolphiq/craft3-forms/src/resources';
 
     public $js = [
         'js/pjax.js',
