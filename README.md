@@ -118,15 +118,17 @@ In this case it will be named `contact`
   
         ?>
         
-        <?= $form->field($model, 'firstname')->textInput(['placeholder' => $model->getAttributeLabel('firstname')]); ?>
-        <?= $form->field($model, 'lastname')->textInput(['placeholder' => $model->getAttributeLabel('lastname')]); ?>
-        <?= $form->field($model, 'phone')->textInput(['placeholder' => $model->getAttributeLabel('phone')]); ?>
-        <?= $form->field($model, 'email')->textInput(['placeholder' => $model->getAttributeLabel('email')]); ?>
+        <?= $form->field($model, 'firstname')->textInput(); ?>
+        <?= $form->field($model, 'lastname')->textInput(); ?>
+        <?= $form->field($model, 'phone')->textInput(); ?>
+        <?= $form->field($model, 'email')->textInput(); ?>
         
-        <?= $form->field($model, 'message')->textarea(['placeholder' => $model->getAttributeLabel('message')]); ?>
+        <?= $form->field($model, 'message')->textarea(); ?>
         
         <div>
-          <button type="submit" class="button"><?= Craft::t('site', 'Send request'); ?> <i class="icon--check"></i></button>
+          <button type="submit">
+              <?= Craft::t('site', 'Send request'); ?>
+          </button>
         </div>
         
         
@@ -199,7 +201,7 @@ To do this you can create two files:
     <h2>A contact request has been filled in</h2>
     <p>
       We received the following details:<br>
-        <?= \yii\widgets\DetailView::widget([
+        <?= DetailView::widget([
             'model' => $model,
             'attributes' => [
                 'firstname',
@@ -218,10 +220,7 @@ To do this you can create two files:
     
     ```php
     <?php
-    
-    use yii\helpers\Html;
-    use yii\helpers\Url;
-    
+        
     /* @var $this \yii\web\View view component instance */
     /* @var $message \yii\mail\BaseMessage instance of newly created mail message */
     /* @var $model app\forms\contactForm */
