@@ -175,7 +175,7 @@ There are two types of thank you messages:
      */
    ?>
    
-   <p>Bedankt! We nemen snel contact met je op <?= $model->firstname ?>.</p>
+   <p>Thank you <?= $model->firstname ?>, we will contact you soon</p>
     ```
            
 ## Mails
