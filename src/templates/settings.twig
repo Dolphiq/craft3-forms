@@ -1,15 +1,24 @@
 {% import "_includes/forms" as form_elements %}
 
+<div class="sidebar"></div>
 
 {% for form in forms %}
 
     <h2>{{ form.name }}</h2>
 
     {{ form_elements.lightswitchField({
-        label:        "Activate",
-        instructions: "This switch will activate/de-activate this form without removing the settings for this form.",
+        label:        "Enabled",
+        instructions: "When disabled the form will not be shown",
         name:         'forms[' ~ form.handle ~ '][enabled]',
         on:           form.settings.enabled,
+        errors:       false
+    }) }}
+
+    {{ form_elements.lightswitchField({
+        label:        "Logging",
+        instructions: "When enabled the results from the form will be logged into the database",
+        name:         'forms[' ~ form.handle ~ '][enabled_logging]',
+        on:           form.settings.enabled_logging,
         errors:       false
     }) }}
 

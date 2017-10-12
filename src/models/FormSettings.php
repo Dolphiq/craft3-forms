@@ -13,6 +13,7 @@ use craft\base\Model;
 class FormSettings extends Model
 {
     public $enabled = false;
+    public $enabled_logging = true;
     public $mail_subject_owner;
     public $mail_subject_customer;
     public $mail_to;
@@ -21,7 +22,7 @@ class FormSettings extends Model
     {
         return [
             [['mail_to'], 'email'],
-            [['enabled', 'mail_subject_owner', 'mail_subject_customer', 'mail_to'], 'safe'],
+            [['enabled', 'enabled_logging', 'mail_subject_owner', 'mail_subject_customer', 'mail_to'], 'safe'],
         ];
     }
 

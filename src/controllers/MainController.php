@@ -130,15 +130,17 @@ class MainController extends \craft\web\Controller
 
     /**
      * Log the form model in the database
-     * @param $model
+     * @param Form $form
      * @param null|MessageInterface $mail
      */
-    private function saveInDb($model, $mail = null){
-        $log = new log();
-        $log->form_data = json_encode($model->attributes);
-        $log->server_data = json_encode($_SERVER);
-        $log->html_mail = $mail;
-        $log->save(false);
+    private function saveInDb($form, $mail = null){
+        if($form->getSettings()->enabled_logging === true) {
+            $log = new log();
+            $log->form_data = json_encode($form->attributes);
+            $log->server_data = json_encode($_SERVER);
+            $log->html_mail = $mail;
+            $log->save(false);
+        }
     }
 
     /**
