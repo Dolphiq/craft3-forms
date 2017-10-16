@@ -16,7 +16,7 @@ This plugin makes it possible to use forms the way the Yii 2 Framework offers.
        
 2. Install plugin in the Craft Control Panel under Settings > Plugins
 
-3. Add the directory `forms` to the root directory of your craft project (next to your config and templates directory)
+3. Add a new directory `forms` to the root directory of your craft project (next to your config and templates directory) or copy the forms directory from the examples folder in the plugin directory
 
 ## Directory structure
 Below you will find an example directory structure for a contact and a vacancy form
