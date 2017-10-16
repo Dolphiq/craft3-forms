@@ -6,9 +6,10 @@ This plugin makes it possible to use forms the way the Yii 2 Framework offers. T
 - Assign field labels in your model to use them in multiple areas.
 
 Next to this Yii 2 Framework logic, we added:
-- Easy enable/disable the form in the settings
-- Easy enable/disable logging form entries into the database in the settings
-- Twig extensions, form examples and E-mail examples
+- Easily enable/disable the form in the settings.
+- Easily enable/disable logging form entries into the database in the settings.
+- Control the recipient and subject of the contact requests e-mails in the plugin settings per form.
+- Twig extensions, form examples and E-mail examples.
 
 **Note**: This plugin may become a paid add-on when the Craft Plugin store becomes available.
 
