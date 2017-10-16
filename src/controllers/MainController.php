@@ -164,6 +164,11 @@ class MainController extends \craft\web\Controller
         $forms = [];
         $settings = $this->getSettings();
 
+
+        if (!file_exists(Craft::getAlias($settings->form_path))) {
+          return $forms;
+        }
+
         // Get all files in the directory where users forms are
         $files = FileHelper::findFiles(Craft::getAlias($settings->form_path), ['only' => ['*'.$settings->append_form_part]]);
 
