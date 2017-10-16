@@ -1,7 +1,14 @@
 # Form plugin for Craft CMS 3.x
 
-Craft CMS 3 is build on top of the Yii 2 Framework.  
-This plugin makes it possible to use forms the way the Yii 2 Framework offers.
+Craft CMS 3 is build on top of the Yii 2 Framework.
+This plugin makes it possible to use forms the way the Yii 2 Framework offers. This includes:
+- Easy out of the box client and server side validation with use of rules in a model.
+- Assign field labels in your model to use them in multiple areas.
+
+Next to this Yii 2 Framework logic, we added:
+- Easy enable/disable the form in the settings
+- Easy enable/disable logging form entries into the database in the settings
+- Twig extensions, form examples and E-mail examples
 
 **Note**: This plugin may become a paid add-on when the Craft Plugin store becomes available.
 
