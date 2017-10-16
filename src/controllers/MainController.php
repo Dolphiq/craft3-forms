@@ -32,7 +32,7 @@ class MainController extends \craft\web\Controller
      * The default name for the general thank you view file.
      * The general thank you file, also named thanks.php, will reside in de main forms directory (The FORM_PATH)
      */
-    CONST FORM_MAIL_LAYOUT = '@vendor/dolphiq/form/src/mail/layouts/html';
+    CONST FORM_MAIL_LAYOUT = '@vendor/dolphiq/craft3-forms/src/mail/layouts/html';
 
 
     /**
