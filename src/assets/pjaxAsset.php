@@ -1,9 +1,9 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: lucasweijers
- * Date: 28-08-17
- * Time: 15:08
+ * Created by Dolphiq
+ * Lucas Weijers
+ * Date: 2017-10-16
  */
 
 namespace plugins\dolphiq\form\assets;

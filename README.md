@@ -253,3 +253,8 @@ You can set the following options per form:
   This only works when the form contains the `email` attribute so the person that fills in the form can fill in his emailadress.
   You can fill in the following option:_
     * Mail subject _The subject of the email that will be send to the customers emailaddress._
+
+
+### Contributors & Developers
+Lucas Weijers - info@dolphiq.nl
+Brought to you by [Dolphiq](https://dolphiq.nl)
