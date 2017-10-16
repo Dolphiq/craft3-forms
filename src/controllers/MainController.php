@@ -134,7 +134,8 @@ class MainController extends \craft\web\Controller
      * @param null|MessageInterface $mail
      */
     private function saveInDb($form, $mail = null){
-        if($form->getSettings()->enabled_logging === true) {
+
+        if($form->getSettings()->enabled_logging == true) {
             $log = new log();
             $log->form_data = json_encode($form->attributes);
             $log->server_data = json_encode($_SERVER);
