@@ -1,7 +1,15 @@
 # Form plugin for Craft CMS 3.x
 
-Craft CMS 3 is build on top of the Yii 2 Framework.  
-This plugin makes it possible to use forms the way the Yii 2 Framework offers.
+Craft CMS 3 is build on top of the Yii 2 Framework.
+This plugin makes it possible to use forms the way the Yii 2 Framework offers. This includes:
+- Easy out of the box client and server side validation with use of rules in a model.
+- Assign field labels in your model to use them in multiple areas.
+
+Next to this Yii 2 Framework logic, we added:
+- Easily enable/disable the form in the settings.
+- Easily enable/disable logging form entries into the database in the settings.
+- Control the recipient and subject of the contact requests e-mails in the plugin settings per form.
+- Twig extensions, form examples and E-mail examples.
 
 **Note**: This plugin may become a paid add-on when the Craft Plugin store becomes available.
 
@@ -16,7 +24,7 @@ This plugin makes it possible to use forms the way the Yii 2 Framework offers.
        
 2. Install plugin in the Craft Control Panel under Settings > Plugins
 
-3. Add the directory `forms` to the root directory of your craft project (next to your config and templates directory)
+3. Add a new directory `forms` to the root directory of your craft project (next to your config and templates directory) or copy the forms directory from the examples folder in the plugin directory
 
 ## Directory structure
 Below you will find an example directory structure for a contact and a vacancy form
@@ -108,12 +116,11 @@ In this case it will be named `contact`
   
         // Start active form
         $form = ActiveForm::begin([
-                'action' => \craft\helpers\UrlHelper::actionUrl('dolphiq-craft3-forms/main/index', ['handle' => $handle]),
-                'method' => 'POST',
-                'options' => [
-                    'data-pjax' => true,
-                ],
-            ]
+            'action' => \craft\helpers\UrlHelper::actionUrl('dolphiq-craft3-forms/main/index', ['handle' => $handle]),
+            'method' => 'POST',
+            'options' => [
+                'data-pjax' => true,
+            ],
         ]);
   
         ?>
@@ -246,3 +253,8 @@ You can set the following options per form:
   This only works when the form contains the `email` attribute so the person that fills in the form can fill in his emailadress.
   You can fill in the following option:_
     * Mail subject _The subject of the email that will be send to the customers emailaddress._
+
+
+### Contributors & Developers
+Lucas Weijers - info@dolphiq.nl
+Brought to you by [Dolphiq](https://dolphiq.nl)

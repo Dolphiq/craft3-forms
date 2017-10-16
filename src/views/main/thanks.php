@@ -9,7 +9,7 @@
 ?>
 
 <div class="form__thanks">
-  <p>Bedankt! We nemen snel contact met je op.</p>
+  <p>Thank you, we will contact you soon.</p>
 </div>
 
 

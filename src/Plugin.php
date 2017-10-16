@@ -1,11 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: lucasweijers
- * Date: 19-05-17
- * Time: 15:23
+ * Created by Dolphiq
+ * Lucas Weijers
+ * Date: 2017-10-16
  */
-
 
 namespace plugins\dolphiq\form;
 

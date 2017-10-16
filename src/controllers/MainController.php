@@ -32,7 +32,7 @@ class MainController extends \craft\web\Controller
      * The default name for the general thank you view file.
      * The general thank you file, also named thanks.php, will reside in de main forms directory (The FORM_PATH)
      */
-    CONST FORM_MAIL_LAYOUT = '@vendor/dolphiq/form/src/mail/layouts/html';
+    CONST FORM_MAIL_LAYOUT = '@vendor/dolphiq/craft3-forms/src/mail/layouts/html';
 
 
     /**
@@ -116,9 +116,9 @@ class MainController extends \craft\web\Controller
 
                 // Render thank you part
                 if(!is_null($form['thanx'])){
-                    return $this->renderAjax($form['thanx']);
+                    return $this->renderAjax($form['thanx'], ['model' => $form, 'params' => $params, 'handle' => $handle]);
                 }else{
-                    return $this->renderAjax(self::FORM_THANX_VIEW);
+                    return $this->renderAjax(self::FORM_THANX_VIEW, ['model' => $form, 'params' => $params, 'handle' => $handle] );
                 }
             }
 
@@ -134,7 +134,8 @@ class MainController extends \craft\web\Controller
      * @param null|MessageInterface $mail
      */
     private function saveInDb($form, $mail = null){
-        if($form->getSettings()->enabled_logging === true) {
+
+        if($form->getSettings()->enabled_logging == true) {
             $log = new log();
             $log->form_data = json_encode($form->attributes);
             $log->server_data = json_encode($_SERVER);
@@ -163,6 +164,11 @@ class MainController extends \craft\web\Controller
     private function loadForms(){
         $forms = [];
         $settings = $this->getSettings();
+
+
+        if (!file_exists(Craft::getAlias($settings->form_path))) {
+          return $forms;
+        }
 
         // Get all files in the directory where users forms are
         $files = FileHelper::findFiles(Craft::getAlias($settings->form_path), ['only' => ['*'.$settings->append_form_part]]);

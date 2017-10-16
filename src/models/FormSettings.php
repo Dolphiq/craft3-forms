@@ -12,7 +12,7 @@ use craft\base\Model;
 
 class FormSettings extends Model
 {
-    public $enabled = false;
+    public $enabled = true;
     public $enabled_logging = true;
     public $mail_subject_owner;
     public $mail_subject_customer;
