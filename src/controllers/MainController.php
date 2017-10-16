@@ -116,9 +116,9 @@ class MainController extends \craft\web\Controller
 
                 // Render thank you part
                 if(!is_null($form['thanx'])){
-                    return $this->renderAjax($form['thanx']);
+                    return $this->renderAjax($form['thanx'], ['model' => $form, 'params' => $params, 'handle' => $handle]);
                 }else{
-                    return $this->renderAjax(self::FORM_THANX_VIEW);
+                    return $this->renderAjax(self::FORM_THANX_VIEW, ['model' => $form, 'params' => $params, 'handle' => $handle] );
                 }
             }
 
