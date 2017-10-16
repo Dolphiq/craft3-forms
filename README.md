@@ -108,12 +108,11 @@ In this case it will be named `contact`
   
         // Start active form
         $form = ActiveForm::begin([
-                'action' => \craft\helpers\UrlHelper::actionUrl('dolphiq-craft3-forms/main/index', ['handle' => $handle]),
-                'method' => 'POST',
-                'options' => [
-                    'data-pjax' => true,
-                ],
-            ]
+            'action' => \craft\helpers\UrlHelper::actionUrl('dolphiq-craft3-forms/main/index', ['handle' => $handle]),
+            'method' => 'POST',
+            'options' => [
+                'data-pjax' => true,
+            ],
         ]);
   
         ?>
