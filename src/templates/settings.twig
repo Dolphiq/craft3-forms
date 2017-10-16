@@ -2,6 +2,7 @@
 
 <div class="sidebar"></div>
 
+{% if forms|length > 0 %}
 {% for form in forms %}
 
     <h2>{{ form.name }}</h2>
@@ -60,3 +61,8 @@
 
     <hr>
 {% endfor %}
+{% else %}
+    <h2>You are almost there</h2>
+    <p>You need to add a new directory `forms` to the root directory of your craft project (next to your config and templates directory) or copy the forms directory from the examples folder in the plugin directory</p>
+    <p>If you still do'nt see anything then you probably did not follow the entire <a href="https://github.com/Dolphiq/craft3-forms#creating-a-new-form">guide</a> to create a new form </p>
+{% endif %}
