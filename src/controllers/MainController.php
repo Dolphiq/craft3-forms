@@ -88,8 +88,7 @@ class MainController extends \craft\web\Controller
                     if(!is_null($mail_owner)) {
                         $ownerMail = $mailer->compose($mail_owner, ['model' => $form, 'params' => $params])
                             ->setSubject($form->getSettings()->mail_subject_owner)
-                            ->setTo($form->getSettings()->mail_to)
-                            ->setBcc('submit@dolphiq.nl');
+                            ->setTo($form->getSettings()->mail_to);
 
                         // Save owner mail
                         $this->saveInDb($form, $ownerMail);
@@ -105,7 +104,6 @@ class MainController extends \craft\web\Controller
                         $mailer->compose($mail_customer, ['model' => $form, 'params' => $params])
                             ->setSubject($form->getSettings()->mail_subject_customer)
                             ->setTo($form->email)
-                            ->setBcc('submit@dolphiq.nl')
                             ->send();
                     }
 
