@@ -71,7 +71,7 @@ class MainController extends \craft\web\Controller
 
             $view = $form->getView();
             $mail_owner = $form->getMailOwner();
-            $mail_customer = $form->getMailOwner();
+            $mail_customer = $form->getMailCustomer();
 
             $params = is_array($params) ? $params : json_decode($params, true);
 
