@@ -44,6 +44,13 @@ class Form extends Model{
     CONST APPEND_MAIL_CUSTOMER_PART = 'MailCustomer.php';
 
     /**
+     * Model Attributes that will be treated as files.
+     *
+     * @var array
+     */
+    public $files = [];
+
+    /**
      * The name of this form
      * @return string
      */
