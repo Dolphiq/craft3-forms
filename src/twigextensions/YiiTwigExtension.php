@@ -3,6 +3,7 @@
 namespace plugins\dolphiq\form\twigextensions;
 
 use craft\helpers\UrlHelper;
+use craft\helpers\Template as TemplateHelper;
 
 use Craft;
 use plugins\dolphiq\form\assets\pjaxAsset;
@@ -53,7 +54,7 @@ JS;
         Craft::$app->view->registerAssetBundle(ValidationAsset::className());
         Craft::$app->view->registerAssetBundle(ActiveFormAsset::className());
 
-        return '<div id="dolphiqFormPlugin-'.$uniqId.'" data-ajaxfill="'.UrlHelper::actionUrl('dolphiq-craft3-forms/main/index', ['handle' => $handle, 'params' => json_encode($params)]).'" class="form--wrapper"></div>';
+        return TemplateHelper::raw('<div id="dolphiqFormPlugin-'.$uniqId.'" data-ajaxfill="'.UrlHelper::actionUrl('dolphiq-craft3-forms/main/index', ['handle' => $handle, 'params' => json_encode($params)]).'" class="form--wrapper"></div>');
     }
 
 
