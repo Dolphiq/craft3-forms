@@ -1,5 +1,7 @@
 <?php
 
+use yii\widgets\DetailView;
+
 /* @var $this \yii\web\View view component instance */
 /* @var $message \yii\mail\BaseMessage instance of newly created mail message */
 /* @var $model app\forms\contactForm */
