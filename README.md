@@ -40,7 +40,7 @@ forms/
     vacancy/
         vacancyForm.php
         vacancyView.php
-        vacancyOwnerMail.php
+        vacancyMailOwner.php
         vacancyCustomerMail.php
         vacancyThanks.php
     thanks.php       
