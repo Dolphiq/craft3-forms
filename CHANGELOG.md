@@ -1,5 +1,15 @@
 # Forms Changelog
 
+## 1.1.0 - 2018-08-05 [CRITICAL]
+
+### Changes
+- No need to add the |raw filter anymore to twig tags.<br>
+`{{ dolphiqForm('contact')|raw }}`<br>will become<br>  `{{ dolphiqForm('contact') }}`
+- Fixed privacy issue
+- Fixed case sensitive naming
+- Use class instead of classname, for use in recent php versions
+- Fixed returning the correct customer mail
+- Fixed using the correct filename for the owner mail
 ## 1.0.0 - 2017-10-16
 - Initial release.
 

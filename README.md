@@ -153,7 +153,7 @@ In this case it will be named `contact`
 3. In your template you can now use the form by using the tag the following tag. Instead of `contact` you fill in the handle of your form.
 
    ```twig
-   {{ dolphiqForm('contact')|raw }}
+   {{ dolphiqForm('contact') }}
    ```
    
 ## Thank you message

@@ -29,7 +29,7 @@ class Form extends Model{
      * The default name for the form specific thank you view file.
      * Form specific thank you files are named thanks.php and reside in the form directory that it applies to
      */
-    CONST APPEND_THANKS_PART = 'thanks.php';
+    CONST APPEND_THANKS_PART = 'Thanks.php';
 
     /**
      * This is the ending part of the form owner mail. Each owner mail must end with this filename. You can only have one owner mail per form.
