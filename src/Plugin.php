@@ -21,7 +21,7 @@ class Plugin extends \craft\base\Plugin
         parent::init();
 
         // Custom initialization code goes here...
-        Craft::$app->view->twig->addExtension(new YiiTwigExtension());
+        Craft::$app->view->registerTwigExtension(new YiiTwigExtension());
     }
 
     protected function createSettingsModel()
