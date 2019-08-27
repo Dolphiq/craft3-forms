@@ -38,7 +38,7 @@ class MainController extends \craft\web\Controller
     /**
      * @inheritdoc
      */
-    protected $allowAnonymous = true;
+    protected $allowAnonymous = self::ALLOW_ANONYMOUS_LIVE;
 
     /**
      * The loaded forms
