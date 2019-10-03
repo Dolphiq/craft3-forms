@@ -1,7 +1,7 @@
 {
   "name": "dolphiq/craft3-forms",
   "description": "Craft 3 formulieren",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "keywords": [
     "craft",
     "craft3",
@@ -18,7 +18,7 @@
   "minimum-stability": "beta",
   "license": "MIT",
   "require": {
-    "craftcms/cms": "^3.0.0-beta.20"
+    "craftcms/cms": "^3.1.0"
   },
   "autoload": {
     "psr-4": {
