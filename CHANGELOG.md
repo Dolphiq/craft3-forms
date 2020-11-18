@@ -1,5 +1,11 @@
 # Forms Changelog
 
+## 1.1.1 - 2019-10-03
+
+### Fixed
+- Fixed plugin to be compatible with newer versions of Craft
+
+
 ## 1.1.0 - 2018-08-05 [CRITICAL]
 
 ### Changes

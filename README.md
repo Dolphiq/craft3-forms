@@ -20,7 +20,7 @@ Next to this Yii 2 Framework logic, we added:
 ## Installation
 1. Install with Composer
     
-       composer require dolphiq/craf3-forms
+       composer require dolphiq/craft3-forms
        
 2. Install plugin in the Craft Control Panel under Settings > Plugins
 
@@ -40,7 +40,7 @@ forms/
     vacancy/
         vacancyForm.php
         vacancyView.php
-        vacancyOwnerMail.php
+        vacancyMailOwner.php
         vacancyCustomerMail.php
         vacancyThanks.php
     thanks.php       
