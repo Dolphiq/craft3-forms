@@ -8,15 +8,16 @@
 
 namespace plugins\dolphiq\form\controllers;
 
+use Yii;
 use Craft;
 use craft\web\View;
-use plugins\dolphiq\form\models\Form;
-use plugins\dolphiq\form\models\log;
-use plugins\dolphiq\form\models\Settings;
-use plugins\dolphiq\form\Plugin;
-use Yii;
+use yii\web\UploadedFile;
 use yii\helpers\FileHelper;
 use yii\mail\MessageInterface;
+use plugins\dolphiq\form\Plugin;
+use plugins\dolphiq\form\models\log;
+use plugins\dolphiq\form\models\Form;
+use plugins\dolphiq\form\models\Settings;
 
 class MainController extends \craft\web\Controller
 {
@@ -78,9 +79,12 @@ class MainController extends \craft\web\Controller
 
             $params = is_array($params) ? $params : json_decode($params, true);
 
-            if ($form->load(Craft::$app->request->post()) && $form->validate()) {
+            // UPLOAD FILES INTO MODEL
+            foreach($form->files as $fileField) {
+                $form->attachment = UploadedFile::getInstance($form, $fileField);
+            }
 
-                /** Validated succesfull. **/
+            if ($form->load(Craft::$app->request->post()) && $form->validate()) {
 
                 // Send mail and return thank you page
                 if(!is_null($mail_owner) || !is_null($mail_customer)) {
@@ -92,6 +96,15 @@ class MainController extends \craft\web\Controller
                         $ownerMail = $mailer->compose($mail_owner, ['model' => $form, 'params' => $params])
                             ->setSubject($form->getSettings()->mail_subject_owner)
                             ->setTo($form->getSettings()->mail_to);
+
+                        foreach ($form->files as $fileField) {
+                            if ($form[$fileField]) {
+                                $ownerMail->attachContent(file_get_contents($form[$fileField]->tempName), [
+                                    'fileName' => $form[$fileField]->name,
+                                    'contentType' => $form[$fileField]->type,
+                                ]);
+                            }
+                        }
 
                         // Save owner mail
                         $this->saveInDb($form, $ownerMail);
@@ -123,7 +136,7 @@ class MainController extends \craft\web\Controller
                 }
             }
 
-            return $this->renderAjax($view, ['model' => $form, 'params' => $params, 'handle' => $handle]);
+            return $this->renderAjax($view, ['model' => $form, 'params' => $params, 'handle' => $handle, 'errors' => $form->getErrors()]);
         }
 
         return null;
