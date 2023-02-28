@@ -1,6 +1,6 @@
 # Forms Changelog
 
-## 1.1.2 - 2020-11-02
+## 1.1.4 - 2023-02-28
 ### Fixed
 - Changed the lowercase "l" to an UperCase "L" to fix a Composer 2 compatibility issue.
 
