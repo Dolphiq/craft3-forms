@@ -11,7 +11,7 @@ namespace plugins\dolphiq\form\controllers;
 use Craft;
 use craft\web\View;
 use plugins\dolphiq\form\models\Form;
-use plugins\dolphiq\form\models\log;
+use plugins\dolphiq\form\models\Log;
 use plugins\dolphiq\form\models\Settings;
 use plugins\dolphiq\form\Plugin;
 use Yii;
@@ -137,7 +137,7 @@ class MainController extends \craft\web\Controller
     private function saveInDb($form, $mail = null){
 
         if($form->getSettings()->enabled_logging == true) {
-            $log = new log();
+            $log = new Log();
             $log->form_data = json_encode($form->attributes);
             $log->server_data = json_encode($_SERVER);
             $log->html_mail = $mail;

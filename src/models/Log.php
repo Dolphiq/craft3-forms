@@ -17,7 +17,7 @@ namespace plugins\dolphiq\form\models;
  * @property string $html_mail
  * @property string $created_at
  */
-class log extends \yii\db\ActiveRecord {
+class Log extends \yii\db\ActiveRecord {
 
     /**
      * @return string the name of the table associated with this ActiveRecord class.
