@@ -55,6 +55,8 @@ class MainController extends \craft\web\Controller
      */
     public function init()
     {
+        parent::init();
+        
         $this->allowAnonymous = (is_bool($this->allowAnonymous) ? (int) $this->allowAnonymous : $this->allowAnonymous);
         Yii::$app->view->on(View::EVENT_AFTER_RENDER, function ($e) {
             $e->sender->assetBundles = [];
